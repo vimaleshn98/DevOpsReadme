@@ -66,13 +66,27 @@ git push origin v1.0 :  (creates a remote branch with same name)
 git push origin v1.0 : v1.0fixes
 git push origin --delete myExample
 
-Note:
-Always merge and delete the feature branches
 
 
 # Webhooks (also with ngrok for local sys)
 
 # pull request
+used to check before any changes are proposed to master
+goto pull request tab
+click on create a new pull request
+base must be master branch and 
+comapre with feature1
+Then create a pull request \n
+once its created u have to merge pull request if its cool
+then u will get this message:
+```
+Pull request successfully merged and closed
+You’re all set—the feature1 branch can be safely deleted.
+```
+After this delete the feature branch
+Note:
+Always merge and delete the feature branches
+
 # merge tool
 hello rt here
 im not back
