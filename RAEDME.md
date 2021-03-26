@@ -73,9 +73,20 @@ Always merge and delete the feature branches
 # Webhooks (also with ngrok for local sys)
 
 # pull request
-# merge tool
-hello rt here
-im not back
+checking this cool feature
+
+# Merge Tool
+It shows 3 panes
+1st : whats changed in local
+2nd : what was the base version
+3rd : what was changed in the remote branch
+
+And below it shows to edit the file 
+in insert mode delete the HEAD >>>> and sha1 numbers and resolve the conflict manually
+then exit the editor and 3 panes 
+then commit the same in the terminal
+then push to remote
+
 # About Maven
 POM : Project Object Model
 
