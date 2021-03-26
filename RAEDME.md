@@ -72,18 +72,24 @@ git push origin --delete myExample
 
 # pull request
 used to check before any changes are proposed to master
+
 goto pull request tab
+
 click on create a new pull request
-base must be master branch and 
-comapre with feature1
-Then create a pull request \n
+
+base must be master branch and comapre with feature1
+
+Then create a pull request
+
 once its created u have to merge pull request if its cool
-then u will get this message:
+
+Then u will get this message:
 ```
 Pull request successfully merged and closed
 You’re all set—the feature1 branch can be safely deleted.
 ```
 After this delete the feature branch
+
 Note:
 Always merge and delete the feature branches
 
