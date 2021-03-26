@@ -89,15 +89,22 @@ Always merge and delete the feature branches
 
 # Merge Tool
 It shows 3 panes
+
 1st : whats changed in local
+
 2nd : what was the base version
+
 3rd : what was changed in the remote branch
 
 And below it shows to edit the file 
-in insert mode delete the HEAD >>>> and sha1 numbers and resolve the conflict manually
-then exit the editor and 3 panes 
-then commit the same in the terminal
-then push to remote
+
+In insert mode delete the HEAD >>>> and sha1 numbers and resolve the conflict manually
+
+Then exit the editor and 3 panes 
+
+Then commit the same in the terminal
+
+Then push to remote
 
 # About Maven
 POM : Project Object Model
