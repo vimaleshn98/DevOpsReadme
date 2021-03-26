@@ -157,7 +157,7 @@ Note:
 Always merge and delete the feature branches
 
 # Merge Tool
-*https://www.youtube.com/watch?v=1MVQYSlgXrI
+* https://www.youtube.com/watch?v=1MVQYSlgXrI
 
 It shows 3 panes
 
