@@ -72,7 +72,7 @@ Always merge and delete the feature branches
 
 # Webhooks (also with ngrok for local sys)
 
-pull request
+#pull requesti:wq
 #merge tool
 
 # About Maven
