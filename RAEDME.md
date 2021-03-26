@@ -133,10 +133,7 @@ git push origin --delete myExample
 
 
 
-
-# Webhooks (also with ngrok for local sys)
-
-# pull request
+# Pull Request
 used to check before any changes are proposed to master
 
 goto pull request tab
@@ -160,6 +157,8 @@ Note:
 Always merge and delete the feature branches
 
 # Merge Tool
+*https://www.youtube.com/watch?v=1MVQYSlgXrI
+
 It shows 3 panes
 
 1st : whats changed in local
@@ -170,7 +169,7 @@ It shows 3 panes
 
 And below it shows to edit the file 
 
-In insert mode delete the lines with HEAD & >>>> & SHA1 numbers and resolve the conflict manually
+In insert mode delete the lines with <<<<<<<<<HEAD & ======== & SHA1 numbers and resolve the conflict manually
 
 Then exit the editor and 3 panes 
 
@@ -178,19 +177,6 @@ Then commit the same in the terminal
 
 Then push to remote
 
-# About Maven
-POM : Project Object Model
 
-mvn clean
-
-mvn validate
-
-mvn compile
-
-mvn test
-
-mvn package
-
-mvn install
-
+# Webhooks (also with ngrok for local sys)
 
