@@ -134,4 +134,30 @@ Found Artifactory 7.16.3
         }
 ```
 
+### For Post Operations Only
+```
+post{
+      success{
+          rtUpload (
+            serverId: 'ARTIFACTORY-SERVER',
+            spec: '''{
+                 "files": [
+                             {
+                                "pattern": "target/*.jar",
+                                "target": "art-doc-dev-loc/calculator/"
+                            }
+                        ]
+            }''',
+ 
+            buildName: 'sample calulator',
+            buildNumber: '1'
+            )
+            emailext attachLog: true, body: 'BUILD SUCCESSFULLL', subject: 'Calculator App', to: 'efskwgkkwhae@inilogic.com'
 
+      }
+      failure {
+            echo 'Build failed :('
+         emailext attachLog: true, body: 'BUILD Failed', subject: 'Calculator App', to: 'efskwgkkwhae@inilogic.com'
+
+        }
+```
