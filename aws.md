@@ -50,6 +50,28 @@ Save the Session with a name
 
 ## SSH Agent Integration
 
+## SSH Agent Test Validation
+Try this in pipeline script of jenkins (if error arises during ssh connection)
+```
+pipeline {
+    agent any
+
+    stages {
+        stage('test') {
+            steps {
+                sshagent(['73480030-7719-475d-8bb3-d7a4fc22c524']){
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.18.221.13 pwd'
+                }
+                
+            }
+        }
+    }
+}
+```
+```
+OP : Warning: Permanently added '3.18.221.13' (ECDSA) to the list of known hosts
+```
+
 
 
 ## Pipeline Script for Deployment
