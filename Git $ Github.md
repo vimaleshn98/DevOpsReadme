@@ -197,6 +197,10 @@ run the command with the port where jenkins is running :
 ```
 ngrok http 8080
 ```
+```
+Session Status                reconnecting (session closed)                                                             Account                       Atib Samal (Plan: Free)                                                                   Version                       2.3.37                                                                                    Region                        United States (us)                                                                        Web Interface                 http://127.0.0.1:4040                                                                     Forwarding                    http://5af16ef7da7b.ngrok.io -> http://localhost:8080                                     Forwarding                    https://5af16ef7da7b.ngrok.io -> http://localhost:8080                                                                                                                                                            Connections                   ttl     opn     rt1     rt5     p50     p90                                                                             1       0       0.00    0.00    5.67    5.67                                                                                                                                                                      HTTP Requests                                                                                                           -------------                                                                                                                                                                                                                                   POST /github-webhook/          200 OK 
+```
+
 Copy the http:// part and paste it at the payload URL.
 
 Remember the exposed tunnel is active till ngrok is active in background.
