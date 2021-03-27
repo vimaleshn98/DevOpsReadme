@@ -42,8 +42,29 @@ Connection>SSH>Auth : browse and give the converted key
 Save the Session with a name
 
 
-## RDP Client Set Up
+## Connection to Instances
+### (a) Ubuntu Instance
+* You can directly connect from the interface after creation of instance (Not Recommended)
+###### OR
+* Open SSH Client
+* Copy Public DNS 
+* Open cmd
+* cd into the folder which has the .pem file
+* Paste 
 
+
+### (b) Windows Instance
+* Get the public IPv4 Address
+* Generate the password on RDP client page
+* download the remote desktop connection file
+* Open Remote Desktop Connection App on System
+* Type the IPv4 Address
+* User Name as Administrator or HARVEY\Administrator
+* Open tab in connection settings of advanced option
+* open the rdp file 
+* Connect
+* Key in the Password
+* Confirm with yes
 
 
 
