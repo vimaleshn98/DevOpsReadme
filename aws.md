@@ -68,7 +68,29 @@ Save the Session with a name
 
 
 
-## RDS Creation
+## Amazon Relational Database Service (Amazon RDS)
+* Config your ec2 instance Security Group > Edit Inbound Rules
+```
+All Traffic   SSH TCP  All Port Range  22  Anywhere 
+```
+* Open RDS
+* Go to Database
+* On top hit craete db
+* Choose type mysql
+* Use free tier template
+* Copy and Save the master name and master password
+* Once you create a db copy the endpoint and port details
+* Now config the MySql App workbench to add a server
+```
+Give UserName : admin
+Paste the endpoint in HostName
+Give the port Number and Connect
+Upon Demand give the password
+``` 
+* And an instance will be created in the workbench.
+* Then create a db inside the newly created instance
+* Config the application.properties file inside resources folder of the program as per need.
+
 
 
 
