@@ -178,5 +178,57 @@ Then commit the same in the terminal
 Then push to remote
 
 
-# Webhooks (also with ngrok for local sys)
+# Webhooks
+GitHub webhooks in Jenkins are used to trigger the build whenever a developer commits something to the master branch.
+
+
+Let’s see how to add build a webhook in GitHub and then add this webhook in Jenkins.
+
+* Go to your project repository.
+* Go to "settings" in the right corner.
+* Click on "webhooks."
+* Click "Add webhooks."
+* Write the Payload URL as
+https://228b9f82.ngrok.io/github-webhook/
+
+
+Open ngrok
+run the command with the port where jenkins is running :
+```
+ngrok http 8080
+```
+Copy the http:// part and paste it at the payload URL.
+
+Remember the exposed tunnel is active till ngrok is active in background.
+
+Here, Payload URL is the URL where our Jenkins is running add github-webhook to tell GitHub that it is a webhook.
+
+Now go to the Jenkins pipeline and select "GitHub hook trigger for GITScm polling"
+
+Content type: What kind of data we want in our webhook. I have selected JSON data.
+Secret: Used to secure our webhook we can provide a secret in our webhook and ensure that only applications having this webhooks can use it.
+SSL verification: This SSL Checker will help you diagnose problems with your SSL certificate installation. You can verify the SSL certificate on your web server to make sure it is correctly installed, valid, trusted and doesn’t give any errors to any of your users.
+Which events would you like to trigger this webhook?
+
+Just the push event: Only send data when someone pushed into my repository.
+Send me everything: If there is any pull or push event in our repository we will get notified.
+Let me select individual events: We can configure for what events we want our data.
+Click Create and a webhook will be created.
+
+Here https://228b9f82.ngrok.io/ is the port or IP where my Jenkins is running.
+
+Here is a problem you have to take care of if you are running Jenkins on localhost then writing https://localhost:8080/github-webhook/ will not work because Webhooks can only work when they are exposed to the internet.
+
+So if you want to make your  localhost:8080 expose to the internet then we can use tool
+
+Write GitHub-webhook to the ngrok tool refer to this link.
+
+### Some Links for Webhook
+
+https://ngrok.com/download
+
+https://ngrok.com/docs
+
+https://dzone.com/articles/adding-a-github-webhook-in-your-jenkins-pipeline
+
 
