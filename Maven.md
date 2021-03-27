@@ -38,3 +38,14 @@ Keeps a copy in local syatem
 mvn deploy
 ```
 Deploy to Repo using UName , Pass ,etc (Credentials)
+
+
+Sometimes the build might fail during compiling the project at mvn compile stage
+```
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+```
+Paste these three lines in pom.xml properties part
+
+Try this and compile again.
