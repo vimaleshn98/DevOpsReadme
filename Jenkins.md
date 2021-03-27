@@ -137,6 +137,7 @@ Install Basic plugins for :
 
 #   Set Up Java and Maven Configs
 
+# Sample Config : Mail Config
+
 # Pipeline Scripting
 
-# Sample Config : Mail Config
