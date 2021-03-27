@@ -136,9 +136,9 @@ Install Basic plugins for :
 *   Kubernetes
 
 # Set Up Java and Maven Configs
-Configure Jenkins > Global Tools Config
+### Configure Jenkins > Global Tools Config
 
-JDK > JDK Installations
+#### JDK > JDK Installations
 
 * Add JDK
 * Give name as java11
@@ -154,7 +154,7 @@ https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.
 * Save and Apply
 
 
-Maven > Maven Installations
+#### Maven > Maven Installations
 
 * Add Maven
 * Give name as maven3
@@ -162,8 +162,45 @@ Maven > Maven Installations
 * Install from Apache Version 3.6.3
 * Save and Apply
 
+```
+pipeline {
+    agent any
+    tools{
+            maven 'maven-3'
+            jdk 'java11'
+    }
+
+    stages {
+        stage('Git-Checkout') {
+            steps {
+                git 'https://github.com/Harvey2504/maven-samples.git'
+            }
+        }
+        stage('Maven-Package') {
+            steps {
+                bat 'mvn package'
+            }
+        }
+    }
+}
+```
 
 # Sample Config : Mail Config
+### Configure Jenkins > Config System
+* GoTo E-mail Notification
+```
+SMTP Server : smtp.gmail.com
 
-# Pipeline Scripting
+Check Use SMPT Authentication Box
+
+UserName : samalatib96@gmail.com
+Password : *******
+
+Check Use SSL Box
+SMTP port : 465
+Reply-To-Address : noreply@gmail.com
+Charset : UTF-8
+```
+* Test Config By Sending a Test Email.
+
 
