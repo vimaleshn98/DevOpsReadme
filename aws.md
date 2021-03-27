@@ -42,12 +42,14 @@ Connection>SSH>Auth : browse and give the converted key
 Save the Session with a name
 
 
-rdp client set up
-rds creation
-s3 and ec2 creation
-sec groups
-vpc and subnet
-ssh agent integration
+## RDP Client Set Up
+
+
+## RDS Creation
+
+
+## SSH Agent Integration
+
 
 
 ## Pipeline Script for Deployment
@@ -78,3 +80,6 @@ ssh agent integration
             }
         } 
 ```
+
+
+##### Explore ec2 ,s3 ,vpc ,subnet and sec_groups.
