@@ -15,6 +15,10 @@ docker run --name myjenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins_home jen
 ```
 Then myjenkins container has the volume (please do read about docker volume handling to find out more).
 
+Copy the passkey generated in cmd and use it during running Jenkins for the first time.
+
+Set up the jenkins with name mail and password.
+
 ### Docker in Docker
 stop all docker images running on port 8080 or change the port number
 
@@ -91,6 +95,30 @@ pipeline{
 ```
 
 # VS Code Integration for Pipeline Script
+
+Install Jenkins Pipeline Linter Connector Plugin in VsCode
+
+Configure As Follows :
+Crumb URL
+```
+http://localhost:8080/crumbIssuer/api/xml?xpath=concat
+```
+Pass
+```
+Protagonist@2504
+```
+URL
+```
+http://localhost:8080/pipeline-model-converter/validate
+```
+User
+```
+Harvey25
+```
+Shortcut to validate a Jenkinsfile
+```
+Shift+Alt+V
+```
 
 # Basic Plugins Installation
 
