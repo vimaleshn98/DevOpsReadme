@@ -121,6 +121,21 @@ Shift+Alt+V
 ```
 
 # Basic Plugins Installation
+Manage Jenkins > Manage Plugins
+
+Install Basic plugins for :
+*   Dark Theme
+*   Email Ext
+*   Git
+*   Sonarqube
+*   Artifactory
+*   Amazon Web Services
+*   SSH Plugins
+*   Terraform
+*   Docker
+*   Kubernetes
+
+#   Set Up Java and Maven Configs
 
 # Pipeline Scripting
 
