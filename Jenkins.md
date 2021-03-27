@@ -19,7 +19,7 @@ Copy the passkey generated in cmd and use it during running Jenkins for the firs
 
 Set up the jenkins with name mail and password.
 
-### Docker in Docker
+### Docker in Docker (For Jenkins) :Recommended
 stop all docker images running on port 8080 or change the port number
 
 1.Go to your cmd run this command
@@ -135,7 +135,33 @@ Install Basic plugins for :
 *   Docker
 *   Kubernetes
 
-#   Set Up Java and Maven Configs
+# Set Up Java and Maven Configs
+Configure Jenkins > Global Tools Config
+
+JDK > JDK Installations
+
+* Add JDK
+* Give name as java11
+* Check Install automatically Box
+* Delete default installer
+* Add Installer
+* Chose Extract *zip/.tar.gz as installer
+* Download URL
+```
+https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
+```
+* Set Sub Directory Value as : jdk-11.0.1
+* Save and Apply
+
+
+Maven > Maven Installations
+
+* Add Maven
+* Give name as maven3
+* Check Install automatically Box
+* Install from Apache Version 3.6.3
+* Save and Apply
+
 
 # Sample Config : Mail Config
 
