@@ -38,11 +38,40 @@ ID : sonarqube1
 Description : sonarqube1
 ```
 * Config Sonar Server
+```
+Manage Jenkins > Config System > SonarQube servers
+~ Enable injection of SonarQube server configuration as build environment variables
+Name : sonarqube1
+Server URL : https://sonarcloud.io
+Server Auth Token : select appropriate token (sonarqube1)
+Apply and Save.
+```
 * Sonar Analysis Pipeline Script
+```
+stage('sonar-analysis'){
+            steps{
+                script{
+                    last_started=env.STAGE_NAME
+                }
+                withSonarQubeEnv('sonarqube1'){
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+```
 * Quality Gate Pipeline Script
-
-
-
+```
+stage("quality-gate") {
+            steps {
+                script{
+                    last_started=env.STAGE_NAME
+                }
+              timeout(time: 3, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+```
 * Quality Gate for Scripted Pipeline (Not Recommended)
 ```
  stage("Quality Gate"){
