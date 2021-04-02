@@ -135,6 +135,15 @@ Install Basic plugins for :
 *   Docker
 *   Kubernetes
 
+# Creating New Users
+```
+Login into Jenkins.
+Go to Manage Jenkins.
+Go to Create Users.
+Enter all the details – Username, Password, Confirm Pwd, FullName, Email.
+Select Create User.
+```
+
 # Set Up Java and Maven Configs
 ### Configure Jenkins > Global Tools Config
 
