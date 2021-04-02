@@ -233,3 +233,6 @@ https://ngrok.com/docs
 https://dzone.com/articles/adding-a-github-webhook-in-your-jenkins-pipeline
 
 
+# Invite Collaborator
+
+Project > Settings > Manage Access > Invite Collab
