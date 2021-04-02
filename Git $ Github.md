@@ -23,6 +23,8 @@ git add .
 
 git status
 
+git rm --cached filename (to unstage)
+
 git log
 
 git commit -m "meaningful message"
@@ -236,3 +238,5 @@ https://dzone.com/articles/adding-a-github-webhook-in-your-jenkins-pipeline
 # Invite Collaborator
 
 Project > Settings > Manage Access > Invite Collab
+
+A mail will be sent to collab .
