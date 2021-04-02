@@ -254,3 +254,8 @@ Charset : UTF-8
 * Test Config By Sending a Test Email.
 
 
+## Throttle Build
+Link : https://plugins.jenkins.io/throttle-concurrents/#documentation
+
+
+
