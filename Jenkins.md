@@ -93,6 +93,47 @@ pipeline{
   }
 }
 ```
+# Setting Up Jenkins on AWS Ubuntu Instance
+#### Link :
+https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+
+* Follow the steps here till "Download and Install Jenkins"
+
+### Inside Ubuntu Instance Through Putty
+* Install Java
+* Link : https://www.jenkins.io/doc/book/installing/linux/
+```
+sudo apt update
+sudo apt search openjdk (for selection)
+sudo apt install openjdk-11-jdk
+sudo apt install openjdk-11-jdk (for confirmation)
+java -version
+
+```
+
+* Install Jenkins
+* Link : https://www.jenkins.io/doc/book/installing/linux/
+```
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+```
+```
+
+cd ..
+cd ..
+sudo chmod 777 var/lib/jenkins/secrets/initialAdminPassword
+cat initialAdminPassword
+
+```
+* Copy the Password
+* Open ec2-13-58-37-51.us-east-2.compute.amazonaws.com:8080 on browser
+* Then Install Jenkins and Add More Users If Required
+
 
 # VS Code Integration for Pipeline Script
 
