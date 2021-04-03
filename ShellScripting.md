@@ -417,7 +417,7 @@ $ man test
 -e FILE :  
 	File Exists
 
-*  [ ] dont use this syntax as its a exec command 
+#### [ ] dont use this syntax as its a exec command 
 
 * [[ ]] is a bash extension
 * no quote reqd around variables
