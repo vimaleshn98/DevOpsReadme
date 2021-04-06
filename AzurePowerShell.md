@@ -1,3 +1,6 @@
+# Azure Through Powershell
+
+
 #### Links :
 https://docs.microsoft.com/en-us/learn/modules/automate-azure-tasks-with-powershell/5-create-resource-interactively?pivots=windows
 
@@ -57,3 +60,7 @@ New-AzVM -Name ubuntu  -ResourceGroupName resoucegroup  -Location centralindia  
 ```
 ./script.ps1
 ```
+
+# Setting Up Azure CLI
+## 1.Locally
+## 2.On Azure Portal

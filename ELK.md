@@ -40,33 +40,40 @@ stack monitoring>self monitoring>Indices
 
 # Alerting
 
-open slack and launch it
-create an new channeld alert
-skip adding ppl step
-open browse slack and select app mnenu
-search for incoming webhooks and add it
-add to slack
-give ur channel
-add inc webhook integ
-copy the url and paste this in secrets space in elk stack security later
+Link: https://betterprogramming.pub/monitor-your-kubernetes-resources-with-kubewatch-d40ecf420f28
+
+* open slack and launch it
+* create an new channeld alert
+* skip adding ppl step
+* open browse slack and select app mnenu
+* search for incoming webhooks and add it
+* add to slack
+* give ur channel
+* add inc webhook integ
+* copy the url 
+
+(And paste this in secrets space in elk stack security later stages)
 
 
-open elk cloud
-start free trial and login with google account
-then create deployment
-general purpose & i/o optimised
-create with default name
-dld the credentials file
+* open elk cloud Link: https://www.elastic.co/cloud/
+* start free trial and login with google account
+* then create deployment
+* general purpose & i/o optimised
+* create with default name
+* dld the credentials file
 
-open security in deployment tab in elk cloud
-open keystore
-type this in name
+* open security in deployment tab in elk cloud
+* open keystore
+* type this in name
+```
 xpack.notification.slack.account.monitoring.secure_url
-in secret type give the url of slack webhhook and save it
+```
+* in secret type give the url of slack webhhook and save it
 
 
 
 open logstash create a conf file
+```
 >>
 input {
   file {
@@ -93,6 +100,7 @@ output {
   }
 }
 <<
+```
 
 give the path for logs
 overwrite the hosts part with elastic search's endpoint in the io-deployment tab

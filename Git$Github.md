@@ -39,6 +39,8 @@ git checkout master
 
 git branch -m main (renamed)
 
+git remote -v (check fetch and pull origin)
+
 git remote add origin https://...
 
 git push origin master
@@ -132,6 +134,8 @@ git push origin v1.0 :  (creates a remote branch with same name)
 git push origin v1.0 : v1.0fixes
 
 git push origin --delete myExample
+
+git remote add upstream https://github.com/MicrosoftDocs/mslearn-tailspin-spacegame-web.git
 
 
 
