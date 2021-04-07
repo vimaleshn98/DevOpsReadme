@@ -63,4 +63,70 @@ New-AzVM -Name ubuntu  -ResourceGroupName resoucegroup  -Location centralindia  
 
 # Setting Up Azure CLI
 ## 1.Locally
+#### Link : 
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
+
+* Select Install on windows
+* Download the current release of Azure CLI
+* Goto the downloads folder
+* install the azure-cli-2.21.0 installer
+* Run
+```
+az
+az --version
+```
+* Done 
+
 ## 2.On Azure Portal
+
+* Click on the "Cloud Shell" button near leftside of search bar in azure portal
+* Click on bash
+* Create Storage
+* Setup Done
+
+
+## For Credentials of Azure Portal
+There are many ways to authenticate to the Azure provider. In this tutorial, you will use an Active Directory service principal account. 
+#### RUN
+```
+az ad sp create-for-rbac --skip-assignment
+```
+#### OUTPUT
+```
+{
+  "appId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+  "displayName": "azure-cli-2019-04-11-00-46-05",
+  "name": "http://azure-cli-2019-04-11-00-46-05",
+  "password": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+  "tenant": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+}
+```
+
+
+* MISC
+#### RUN
+```
+az login
+```
+* Login window will pop up.
+* Login with ur azure account.
+#### OUTPUT
+```
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "************************",
+    "id": "************************",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Free Trial",
+    "state": "Enabled",
+    "tenantId": "************************",
+    "user": {
+      "name": "atib****@gmail.com",
+      "type": "user"
+    }
+  }
+]
+```

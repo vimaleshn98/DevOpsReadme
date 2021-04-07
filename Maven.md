@@ -20,6 +20,8 @@ Unit tests are carried on with Ex:jUnit
 Also creates test classes
 
 Reports are stored in target > surefire reports folder
+
+To skip tests : -DskipTests  
 ```
 mvn package
 ```

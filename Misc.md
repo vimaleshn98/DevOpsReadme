@@ -24,4 +24,8 @@ taskkill/PID 14260 /F
 Ctrl+Shift+V
 ```
 
-## 3. Will Come Soon
+## 3. Online Notepad
+
+#### notepad.pw
+
+## 4.Coming Soon
