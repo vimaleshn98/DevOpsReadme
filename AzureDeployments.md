@@ -78,9 +78,21 @@ az acr create --resource-group myContainerRG --name myContainerRegistrySomeUniqu
 * Enable Admin User
 * The password can be used for interaction with this resource later
 
+### Run these two commands in cmd
+WhereToFind :
+Azure > Container registry > Settings > Access keys
+```
+kubectl create secret docker-registry <Login server> --docker-username=<Container registry name> --docker-password=<?>
+OP: 
+secret/mycontainerregistrysomeuniquename.azurecr.io created
+```
+WhereToFind : Azure > Kube Services > 
+```
+az aks update --name <Kube service name> --resource-group <Kube RG> --attach-acr <Container registry name>
+```
 
 
-## CI
+## Continuous Integration
 
 * Import the Repo
 https://github.com/Harvey2504/todo-app.git
@@ -103,36 +115,40 @@ Add :
 image: mycontainerregistrysomeuniquename.azurecr.io/todo-app:tagVersion
 
 ```
-
+### Service Connection 
 * Project Settings > Service Connection > Create Service Connection > Docker Registry 
 * Choose Azure Container Registry
 * Choose Azure Container
 * Give a Service Connection Token Name
 
-* Create a CI pipeline 
-Pipeline > create a new Pipeline
-Select Project from azure Repo
-In config step add maven template
-Edit location of pom file  (Like 'app/pom.xml')
-Show Assistant
-Add docker task at after maven task scripts
-Select Container registry Service Connection Token
-Container Repo : Image name mentioned in api-dep.yml 
-Set path for Dockerfile (Like app/Dockerfile)
-Then succeed with Add Button
-Add this line :  tags: '$(version)'
+### Create a CI pipeline 
+* Pipeline > create a new Pipeline
+* Choose Classic Method
+* Select Project from azure Repo
+* In config step add maven template
+* On pipeline tab give the location of maven pom.xml file
+* In copy files give contents as : **/*.war
+* Add docker task
+* Select Container registry Service Connection Token
+* Container Repo : Image name mentioned in api-dep.yml 
+* Set path for Dockerfile (Like app/Dockerfile)
+* Tags : $(Build.BuildId)
+Note : (For YAML Way)
+```
+Add this line :  tags: '$(Version)' 
+in the script of docker task
 
-* For versioning of tag names in pipeline
+For versioning of tag names in pipeline
 Click on variables > new variable
-Name : give variable name
+Name : Version
 Value : $(Build.BuildId) [This is an inbuilt variable]
-
-* For tagName in deployments
-Search for command line task
-Put : sed -i ''s/tagVersion/$(version)/g'' k8s/api-deployment.yaml
-Add task
-
-* For Deployment
+```
+* Search for command line task
+* This is for tagName variable in api-deployments.yml
+```
+sed -i ''s/tagVersion/$(Version)/g'' k8s/api-deployment.yaml
+```
+* Add 2 tasks of Publish Artifact : drop
 
 Publish Build Artifacts Task (for database deployment)
 Path to Publish : k8s/database-deployment.yaml
@@ -140,15 +156,44 @@ Path to Publish : k8s/database-deployment.yaml
 Publish Build Artifacts Task (for api deployment)
 Path to Publish : k8s/api-deployment.yaml
 
-Save and run the pipeline
+* Trigger tab : Enable Continuous Integration
+* Save and run the pipeline
 
+### Create Service Connection for k8s
+* Project Settings > Service Connections > New Service Connection > Kubernetes
+* Select Azure Sub (Default)
+* Namespace : default
+* Service Connection name : kube-connection
+* Save
+
+
+## Continuous Deployment 
+* Pipelines > Releases > New Pipeline
+* Choose Empty Job Template
+* Add Artifacts > Select the CI Build pipeline to access
+* Give Specific Version or latest as per requirements
+* Enable Continous Deployment Trigger 
+* Name the first stage as db-release
+* Add another stage named api-release
+* Click on 1job,0task (Similar for stage1 $ stage2)
+* Add kubectl task
+* Choose your kube service connection token from dropdown
+* Command : apply
+* Select use configuration > file path 
+* In file path : select the yaml file to be deployed (stage1 then stage2)
+* Save once both stages are configured
+* Release
 
 
  
 
+### Some Commands To Track Deployments
 
+kubectl get deployment
+kubectl delete deployment <deployment name>
+kubectl delete deployment --all
+kubectl get pods
+kubectl get svc (Get the loadbalancers ext. IP for api app)
+kubectl describe pod <pod name>
 
-
-
-
-kubectl get svc
+#### Access Link : Loadbalancer Ext Ip:8080 (For This ToDo App)
