@@ -216,4 +216,270 @@ https://www.youtube.com/watch?v=4DUhc0MjdUc
 
 
 
-## Environments in Azure DevOps
+# Environments in Azure DevOps
+
+#### Pre Req :
+* Create new RG
+* Create to web app Services
+* Specs :
+```
+Name1: myportfolio-dev-env
+Name2: myportfolio-prod-env
+Runtime Stack : Java 11
+OS : Linux
+```
+* Review and Create
+
+#### Pipeline
+Link : https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops
+
+* Create a new Project
+* Open Repo and import
+* Project Link : https://github.com/Harvey2504/spring-static.git
+* Go through YAML way
+* Select Maven Template
+
+```
+Building a Staged pipeline.
+(use ctrl+space for suggestions)
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildSpringbootApp
+        displayName: 'Building spring boot app'
+        pool:
+           agent: ubuntu-18.04
+        steps:
+          - task: Maven Task
+          - task: Copy Task
+          - task: Publish Task
+
+pool: Default or Any PoolName (If using Some self hosted agent)
+```
+* Add Copy Task
+```
+- task: CopyFiles@2
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
+            Contents: '**/target/*.?(war|jar)'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+```
+* Add Publish Pipeline Artifacts
+```
+- task: PublishPipelineArtifact@0
+          displayName: 'Publish pipeline artifacts'
+          inputs:
+            targetPath: $(Build.ArtifactStagingDirectory)
+```
+#### Deployment to Dev Env
+```
+- stage: Development_Env
+    displayName: 'Deploying to Dev Env'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToLinuxWebApp
+        displayName: 'Deploying to linux webapp'
+        environment: 'staging'   (will be automatically created if not present)
+        pool:
+          agent: ubuntu-18.04
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                -  task: Download Pipeline Artifacts
+                -  task: Azure Web App
+```
+* Add  Download Pipeline Artifacts Task
+```
+- task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: 'current'
+                    targetPath: '$(Pipeline.Workspace)'
+
+```
+* Add  Azure Web App Task
+(Here Either Create Service Connection for AzResourceManager or Directly give the Free Sub Permission)
+```
+App Type : Web App on Linux
+Give appropriate app name from menu which is to be used
+Package : '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+
+
+- task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Free Trial(391f406d-5716-467c-b6e5-815b8af91680)'
+                    appType: 'webAppLinux'
+                    appName: 'my-dev-env'
+                    package: '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+```
+
+
+#### Deployment to Prod Env
+
+(NOTE : You Can Create a Kubernetes Type Resource and Monitor from Azure DevOps Itself if its already up and running)
+
+* Create an Environemnt Explictly
+* Environment > Create New Environment
+* Name : Production
+* Select Resource : None
+* Once Created Open The Env
+* On Top Left Click the ... button and Select Approvals and Checks Option
+* + Approvals
+* Add Users (Add self in this case)
+* Create
+
+
+* 
+```
+- stage: Prod_Env (Change Name)
+    displayName: 'Deploying to Prod Env' (Changing DispName)
+    dependsOn: Development_Env (Dependent Upon Dev Env)
+    condition: succeeded() (Depends on Prev Step)
+    jobs:
+      - deployment: DeployToLinuxWebApp
+        displayName: 'Deploying to linux webapp'
+        environment: 'production' (New Env Chosen)
+        pool:
+          agent: ubuntu-18.04
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: Download Pipeline Artifacts
+                - task: Azure Web App
+
+```
+* Add  Download Pipeline Artifacts Task
+```
+- task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: 'current'
+                    targetPath: '$(Pipeline.Workspace)'
+
+```
+* Add  Azure Web App Task
+(Here Either Create Service Connection for AzResourceManager or Directly give the Free Sub Permission)
+```
+App Type : Web App on Linux
+Give appropriate app name from menu which is to be used
+Package : '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+
+
+- task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Free Trial(391f406d-5716-467c-b6e5-815b8af91680)'
+                    appType: 'webAppLinux'
+                    appName: 'my-dev-env'  (Change the app name)
+                    package: '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+```
+
+* Save
+* And Run
+* Check for Approval Step after Dev-Env Completion
+(Give the approvals or reject them as per need)
+
+
+
+
+
+### Final Pipeline (For Reference) :
+```
+
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildSpringbootApp
+        displayName: 'Building spring boot app'
+        pool:
+           agent: ubuntu-18.04
+        steps:
+
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            mavenOptions: '-Xmx3072m'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.8'
+            jdkArchitectureOption: 'x64'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            goals: 'package'
+
+        - task: CopyFiles@2
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
+            Contents: '**/target/*.?(war|jar)'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            
+        - task: PublishPipelineArtifact@0
+          displayName: 'Publish pipeline artifacts'
+          inputs:
+            targetPath: $(Build.ArtifactStagingDirectory)
+
+  - stage: Development_Env
+    displayName: 'Deploying to Dev Env'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToLinuxWebApp
+        displayName: 'Deploying to linux webapp'
+        environment: 'staging'
+        pool:
+          agent: ubuntu-18.04
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+
+                - task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: 'current'
+                    targetPath: '$(Pipeline.Workspace)'
+
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Free Trial(391f406d-5716-467c-b6e5-815b8af91680)'
+                    appType: 'webAppLinux'
+                    appName: 'my-dev-env'
+                    package: '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+                    
+
+  - stage: Prod_Env
+    displayName: 'Deploying to Prod Env'
+    dependsOn: Development_Env
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToLinuxWebApp
+        displayName: 'Deploying to linux webapp'
+        environment: 'production'
+        pool:
+          agent: ubuntu-18.04
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+
+                - task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: 'current'
+                    targetPath: '$(Pipeline.Workspace)'
+
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Free Trial(391f406d-5716-467c-b6e5-815b8af91680)'
+                    appType: 'webAppLinux'
+                    appName: 'my-prod-env'
+                    package: '$(Pipeline.workspace)/drop/**/target/*.?(war|jar)'
+
+
+```
