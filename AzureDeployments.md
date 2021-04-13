@@ -215,4 +215,5 @@ https://www.youtube.com/watch?v=4DUhc0MjdUc
 
 
 
-az aks get-credentials --resource-group <RG Name> --name <Cluster Name> 
+
+## Environments in Azure DevOps

@@ -303,6 +303,8 @@ AdministratorAccess-AWSElasticBeanstalk
 ```
 
 ### STEP02(Az DevOps)
+* Install aws toolkit
+* Link : https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.aws-vsts-tools
 * Open the project
 * Project : https://github.com/Harvey2504/gs-spring-boot.git
 * Create a service connection in project settings
@@ -376,12 +378,19 @@ deploymentBundleKey : path of object to deploy
 ```
 * Run the pipeline
 
-
+#### Link : https://youtu.be/NfsecKpfGjc
+#### Link : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/tutorials.html
 #### Note : Check that you are selecting out same location for all resources like beanstalk , s3 , etc.
 
 
 
 ## Some Reference Links :
+
+Azure Artifacts
+https://docs.microsoft.com/en-us/learn/modules/manage-build-dependencies/
+
+Release Cadence
+https://docs.microsoft.com/en-us/learn/modules/manage-release-cadence/
 
 Maven Java CI/CD
 https://www.youtube.com/watch?v=QXIxKZINJV4
