@@ -304,6 +304,7 @@ AdministratorAccess-AWSElasticBeanstalk
 
 ### STEP02(Az DevOps)
 * Open the project
+* Project : https://github.com/Harvey2504/gs-spring-boot.git
 * Create a service connection in project settings
 ```
 New Service Connection > AWS
@@ -374,6 +375,8 @@ deploymentBundleKey : path of object to deploy
     deploymentBundleKey: 'app/target/gs-spring-boot-0.1.0.jar'
 ```
 * Run the pipeline
+
+
 #### Note : Check that you are selecting out same location for all resources like beanstalk , s3 , etc.
 
 
