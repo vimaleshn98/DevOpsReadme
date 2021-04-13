@@ -251,6 +251,133 @@ PS C:\agent> .\run.cmd
 
 
 
+
+## Deploying into aws beanstalk
+###STEP01 (Setup)
+* Open AWS Dashboard
+* Search for Elastic Beanstalk
+* Click on Create a new application
+* Application Name : PleaseDeploy
+* Click on Create
+
+* Create a new Environment
+* Select Web Server App
+* Leave everything as default
+* Select : Managed Platform
+* Platform : Java
+* Platform branch : Java 8 running on Amazon Linux
+* Platform version : Default
+* Select Application Code : Sample Application
+* Create Environment
+
+#### Wait for 5 mins till everything is up and running
+EC2 , S3 bucket , Security Groups , etc will be created once the step is finished .
+
+(This is to match the port that env is listening to with the port that application is running on)
+
+* Open the environment
+* On left tab select configuration
+* Edit Software tab
+* Environment Properties
+```
+Name     Value
+PORT     8080
+```
+
+* Open IAM 
+* Open the user which which will be used in az Devops Session Connection
+* Add Permission : Attach existing policies directly
+```
+AmazonEC2FullAccess
+AmazonS3FullAccess
+AWSElasticBeanstalkCustomPlatformforEC2Role
+AdministratorAccess-AWSElasticBeanstalk
+```
+* Open EC2 (Maybe Optional)
+* Click on the instace > Open IAM Role
+```
+AWSElasticBeanstalkWebTier
+AWSElasticBeanstalkMulticontainerDocker
+AWSElasticBeanstalkWorkerTier
+AdministratorAccess-AWSElasticBeanstalk
+```
+
+### STEP02(Az DevOps)
+* Open the project
+* Create a service connection in project settings
+```
+New Service Connection > AWS
+Give your IAM Credentials for user
+Access Key ID : **********
+Secret Access Key : *************
+Service connection name : give token name
+```
+* Open the pipeline
+* Select YAML Type
+* Select Maven Task
+```
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'app/pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package -DskipTests'
+```
+* Add Copy Task
+```
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: 'app/target/*.jar'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+```
+* Add Publish artifact task
+```
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+```
+* Add Amazon S3 upload
+
+Select the name of bucket that was created by beanstalk
+
+Filename Patterns : choose what to copy to S3
+```
+- task: S3Upload@1
+  inputs:
+    awsCredentials: 'aws_token'
+    regionName: 'us-east-2'
+    bucketName: 'elasticbeanstalk-us-east-2-256424498744'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    globExpressions: '**/target/*.jar'
+```
+* Select AWS Elastic Beanstalk Deploy Application
+
+deploymentBundleType : ExistingDepBundleS3
+deploymentBundleBucket : bucket name
+deploymentBundleKey : path of object to deploy
+```
+- task: BeanstalkDeployApplication@1
+  inputs:
+    awsCredentials: 'aws_token'
+    regionName: 'us-east-2'
+    applicationName: 'LetsDeploy'
+    environmentName: 'Letsdeploy-env'
+    applicationType: 's3'
+    deploymentBundleBucket: 'elasticbeanstalk-us-east-2-256424498744'
+    deploymentBundleKey: 'app/target/gs-spring-boot-0.1.0.jar'
+```
+* Run the pipeline
+#### Note : Check that you are selecting out same location for all resources like beanstalk , s3 , etc.
+
+
+
 ## Some Reference Links :
 
 Maven Java CI/CD
@@ -261,3 +388,8 @@ https://www.youtube.com/watch?v=MoFAR_6KDFo
 
 Angular CI/CD
 https://www.youtube.com/watch?v=NFqrWsUPCAM
+
+Angular (Docker)
+https://www.youtube.com/watch?v=K4uNl6JA7g8
+
+

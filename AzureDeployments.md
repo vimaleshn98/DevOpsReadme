@@ -6,6 +6,9 @@ https://learn.hashicorp.com/tutorials/terraform/aks?in=terraform/kubernetes
 #### Through Azure CLI :
 https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough
 
+#### Azure CLI Download
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
 ```
 git clone https://github.com/hashicorp/learn-terraform-provision-aks-cluster
 cd learn-terraform-provision-aks-cluster
@@ -30,9 +33,12 @@ az ad sp create-for-rbac --skip-assignment (Save the JSON File for Credentials)
 ```
 az account set --subscription 391f406d-5716-467c-b6e5-815b8af91680
 
-az aks get-credentials --resource-group firm-marlin-rg --name firm-marlin-aks
-O/P : Merged ...
+az aks get-credentials --resource-group <RG Name> --name <Cluster Name> 
+
 ```
+#### O/P : Merged ...
+
+
 * Checking Connection (Local sys interacting with aks cluster)
 ```
 kubectl get pods
@@ -197,3 +203,16 @@ kubectl get svc (Get the loadbalancers ext. IP for api app)
 kubectl describe pod <pod name>
 
 #### Access Link : Loadbalancer Ext Ip:8080 (For This ToDo App)
+
+
+
+
+## Azure Deployments for .net project (Assignment)
+#### Documentation
+https://azuredevopslabs.com/labs/vstsextend/kubernetes/#before-you-begin
+#### Video Description
+https://www.youtube.com/watch?v=4DUhc0MjdUc
+
+
+
+az aks get-credentials --resource-group <RG Name> --name <Cluster Name> 
