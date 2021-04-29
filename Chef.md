@@ -242,3 +242,4 @@ knife environment list
 ```
 #### Chef Automation Tutorials-6 | Configuration Management Links :
 https://www.youtube.com/watch?v=doS1p5AR6KI&list=LL&index=2&t=1886s
+https://www.elastic.co/blog/deploying-elasticsearch-200-with-chef
